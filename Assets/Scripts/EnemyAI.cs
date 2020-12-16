@@ -7,7 +7,7 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] Transform target;
     NavMeshAgent navMeshAgent;
-    [SerializeField] float chaseRange = 15f;
+    [SerializeField] float detectionRadius = 12f;
     private float distanceToTarget = Mathf.Infinity;
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,14 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget < chaseRange)
+        if (distanceToTarget < detectionRadius)
             navMeshAgent.SetDestination(target.position);
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Display the detection radius when selected
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
