@@ -59,7 +59,7 @@ public class Projectile : MonoBehaviour
         {
             Target t = s_SphereCastPool[i].GetComponent<Target>();
             
-            t.Got(damage);
+            t.GetHit(damage);
         }
         
         gameObject.SetActive(false);

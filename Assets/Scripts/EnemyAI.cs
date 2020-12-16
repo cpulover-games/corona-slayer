@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     {
         distanceToTarget = Vector3.Distance(transform.position, target.position);
         if (distanceToTarget < detectionRadius)
-            navMeshAgent.SetDestination(target.position);
+            GetProvoked();
     }
 
     private void OnDrawGizmos()
@@ -28,5 +28,21 @@ public class EnemyAI : MonoBehaviour
         // Display the detection radius when selected
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+
+    private void GetProvoked()
+    {
+        if (distanceToTarget >= navMeshAgent.stoppingDistance)
+        {
+            navMeshAgent.SetDestination(target.position);
+        }
+        else
+        {
+            AttackTarget();
+        }
+    }
+
+    private void AttackTarget(){
+        print("Enemy is attacking");
     }
 }

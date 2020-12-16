@@ -35,15 +35,17 @@ public class Target : MonoBehaviour
             IdleSource.time = Random.Range(0.0f, IdleSource.clip.length);
     }
 
-    public void Got(float damage)
+    public void GetHit(float damage)
     {
         m_CurrentHealth -= damage;
         
         if(HitPlayer != null)
             HitPlayer.PlayRandom();
         
-        if(m_CurrentHealth > 0)
+        if(m_CurrentHealth > 0){
+            gameObject.SendMessage("GetProvoked");
             return;
+        }
 
         Vector3 position = transform.position;
         
