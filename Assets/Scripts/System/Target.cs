@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
+using UnityEngine.UI;
 
 public class Target : MonoBehaviour
 {
     public float health = 5.0f;
     public int pointValue;
+
+    public Slider healthBar;
 
     public ParticleSystem DestroyedEffect;
 
@@ -31,6 +34,8 @@ public class Target : MonoBehaviour
             PoolSystem.Instance.InitPool(DestroyedEffect, 16);
         
         m_CurrentHealth = health;
+        healthBar.maxValue = health;
+        healthBar.value = health;
         if(IdleSource != null)
             IdleSource.time = Random.Range(0.0f, IdleSource.clip.length);
     }
@@ -38,6 +43,7 @@ public class Target : MonoBehaviour
     public void GetHit(float damage)
     {
         m_CurrentHealth -= damage;
+        healthBar.value = m_CurrentHealth;
         
         if(HitPlayer != null)
             HitPlayer.PlayRandom();
@@ -71,5 +77,8 @@ public class Target : MonoBehaviour
         gameObject.SetActive(false);
        
         GameSystem.Instance.TargetDestroyed(pointValue);
+    }
+
+    private void UpdateHealthBar(){
     }
 }
