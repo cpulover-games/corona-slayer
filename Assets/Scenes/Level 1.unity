@@ -549,6 +549,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 2288753979273324619, guid: b79abcb9ee326264694320b336aa66c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2288753979273688163, guid: b79abcb9ee326264694320b336aa66c6,
         type: 3}
       propertyPath: m_RootOrder
@@ -623,6 +628,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ExitDestination.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905082054223780149, guid: b79abcb9ee326264694320b336aa66c6,
+        type: 3}
+      propertyPath: ExitDestination.Array.data[1]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b79abcb9ee326264694320b336aa66c6, type: 3}
@@ -710,6 +720,11 @@ PrefabInstance:
       propertyPath: rooms.Array.data[0]
       value: 
       objectReference: {fileID: 2079894799}
+    - target: {fileID: 9127034782672501814, guid: b5d78841ef7df0b46880a1c5c06ac07e,
+        type: 3}
+      propertyPath: rooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9127034782672501815, guid: b5d78841ef7df0b46880a1c5c06ac07e,
         type: 3}
       propertyPath: m_Name

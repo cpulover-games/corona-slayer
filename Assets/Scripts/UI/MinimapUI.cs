@@ -14,14 +14,14 @@ public class MinimapUI : MonoBehaviour
     public int Resolution;
 
     public MinimapSystem.MinimapSystemSetting MinimapSystemSettings;
-    
+
     public RenderTexture RenderTexture => m_RT;
-    
+
     RenderTexture m_RT;
     float m_Ratio;
     bool m_HeightWasInited;
     float m_InitialHeight;
-    
+
     void Awake()
     {
         Instance = this;
@@ -40,16 +40,16 @@ public class MinimapUI : MonoBehaviour
         if (!m_HeightWasInited)
         {
             m_HeightWasInited = true;
-            m_InitialHeight = playerTransform.position.y;
+            m_InitialHeight = playerTransform.position.y - 2f;
         }
 
         Vector3 usedPosition = playerTransform.position;
         float heightDifference = m_InitialHeight - usedPosition.y;
         float heightSign = Mathf.Sign(heightDifference);
-        heightDifference = Mathf.FloorToInt(Mathf.Abs(heightDifference/MinimapSystemSettings.heightStep)) * heightSign * heightDifference;
+        heightDifference = Mathf.FloorToInt(Mathf.Abs(heightDifference / MinimapSystemSettings.heightStep)) * heightSign * heightDifference;
 
         usedPosition.y = m_InitialHeight + heightDifference;
-        
+
         MinimapSystem.Render(m_RT, usedPosition, playerTransform.forward, MinimapSystemSettings);
 
         if (MinimapSystemSettings.isFixed)

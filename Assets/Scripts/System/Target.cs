@@ -49,7 +49,7 @@ public class Target : MonoBehaviour
             HitPlayer.PlayRandom();
         
         if(m_CurrentHealth > 0){
-            gameObject.SendMessage("GetProvoked");
+            gameObject.SendMessage("GetsProvoked");
             return;
         }
 
