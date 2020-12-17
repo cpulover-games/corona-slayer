@@ -446,6 +446,15 @@ PrefabInstance:
       propertyPath: m_BaseOffset
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 678663438, guid: 547e1bb5b288bc14187ab3bdf87891f6, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512662224952696992, guid: 547e1bb5b288bc14187ab3bdf87891f6,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6772032317834258587, guid: 547e1bb5b288bc14187ab3bdf87891f6,
         type: 3}
       propertyPath: target
