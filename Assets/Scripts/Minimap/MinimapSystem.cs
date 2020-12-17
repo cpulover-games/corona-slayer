@@ -30,19 +30,19 @@ public class MinimapSystem
     {
         s_WallThicknessId = Shader.PropertyToID("_WallThickness");
     }
-    
+
 
     public static void Render(RenderTexture renderTarget, Vector3 origin, Vector3 forward, MinimapSystemSetting settings)
     {
         settings.material.SetFloat(s_WallThicknessId, settings.wallThickness);
-        
+
         float aspectRatio = renderTarget.width / (float)renderTarget.height;
 
         CommandBuffer buffer = new CommandBuffer();
 
         Matrix4x4 lookAt;
 
-        Vector3 camPos = origin + Vector3.up * 3.0f;
+        Vector3 camPos = origin + Vector3.up;
 
         if (settings.isFixed)
         {
@@ -54,15 +54,15 @@ public class MinimapSystem
         }
 
         buffer.SetRenderTarget(renderTarget);
-        buffer.SetProjectionMatrix(Matrix4x4.Ortho(-settings.halfSize * aspectRatio, settings.halfSize  * aspectRatio, -settings.halfSize , settings.halfSize , 0.5f, 1.5f));
+        buffer.SetProjectionMatrix(Matrix4x4.Ortho(-settings.halfSize * aspectRatio, settings.halfSize * aspectRatio, -settings.halfSize, settings.halfSize, 0.5f, 1.5f));
         buffer.SetViewMatrix(lookAt);
-        
-        buffer.ClearRenderTarget(true,true, Color.black);
+
+        buffer.ClearRenderTarget(true, true, Color.black);
         foreach (var r in MinimapElement.Renderers)
         {
             buffer.DrawRenderer(r, settings.material);
         }
-        
+
         Graphics.ExecuteCommandBuffer(buffer);
     }
 }

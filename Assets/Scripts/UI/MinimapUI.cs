@@ -30,7 +30,7 @@ public class MinimapUI : MonoBehaviour
     void Start()
     {
         m_HeightWasInited = false;
-        m_Ratio = MapImageTarget.rectTransform.rect.height / MapImageTarget.rectTransform.rect.width;
+        m_Ratio = (MapImageTarget.rectTransform.rect.height / MapImageTarget.rectTransform.rect.width);
         m_RT = new RenderTexture(Resolution, Mathf.FloorToInt(Resolution * m_Ratio), 16, RenderTextureFormat.ARGB32);
         MapImageTarget.texture = m_RT;
     }
