@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField] GameObject[] guns;
+    private bool isAttacking = false;
     [SerializeField] Transform target;
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -29,6 +31,12 @@ public class EnemyAI : MonoBehaviour
         else
         {
             EnterIdleAnimation();
+        }
+
+        foreach (GameObject gun in guns)
+        {
+            ParticleSystem.EmissionModule emissionModule = gun.GetComponent<ParticleSystem>().emission;
+            emissionModule.enabled = isAttacking;
         }
     }
 
@@ -64,16 +72,18 @@ public class EnemyAI : MonoBehaviour
     private void EnterIdleAnimation()
     {
         animator.SetTrigger("idle");
+        isAttacking = false;
     }
     private void EnterChaseAnimation()
     {
         animator.SetTrigger("chase");
         animator.SetBool("attack", false);
+        isAttacking = false;
     }
 
     private void EnterAttackAnimation()
     {
         animator.SetBool("attack", true);
-        // TODO: add event - enemy hits player
+        isAttacking = true;
     }
 }
