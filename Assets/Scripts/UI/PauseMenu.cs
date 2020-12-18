@@ -17,8 +17,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Display()
     {
+        Time.timeScale = 0;
         gameObject.SetActive(true);
-        GameSystem.Instance.StopTimer();
+        //GameSystem.Instance.StopTimer();
         Controller.Instance.DisplayCursor(true);
     }
 
@@ -34,6 +35,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToGame()
     {
+        Time.timeScale = 1;
         UIAudioPlayer.PlayPositive();
         GameSystem.Instance.StartTimer();
         gameObject.SetActive(false);
