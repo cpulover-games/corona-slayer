@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] Transform target;
-    NavMeshAgent navMeshAgent;
+    private NavMeshAgent navMeshAgent;
+    private Animator animator;
     [SerializeField] float detectionRadius = 12f;
     private float distanceToTarget = Mathf.Infinity;
     private float rotationSpeed = 5f;
@@ -14,14 +15,18 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget < detectionRadius)
+        if (distanceToTarget < detectionRadius){
             GetsProvoked();
+        } else {
+            animator.SetTrigger("idle");
+        }
     }
 
     private void OnDrawGizmos()
@@ -36,6 +41,8 @@ public class EnemyAI : MonoBehaviour
         if (distanceToTarget >= navMeshAgent.stoppingDistance)
         {
             navMeshAgent.SetDestination(target.position);
+            animator.SetTrigger("chase");
+            animator.SetBool("attack", false);
         }
         else
         {
@@ -50,6 +57,6 @@ public class EnemyAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
    }
     private void AttackTarget(){
-        print("Enemy is attacking");
+        animator.SetBool("attack", true);
     }
 }
