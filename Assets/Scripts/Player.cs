@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private int health = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,9 @@ public class Player : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        print("Player gets hit");
-
+        if (--health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }

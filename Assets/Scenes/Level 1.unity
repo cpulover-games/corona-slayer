@@ -5317,6 +5317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbe59fd7c408e6409c2f28fca451ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 9999
 --- !u!1001 &1592493954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5732,6 +5733,10 @@ PrefabInstance:
     - target: {fileID: 16137303, guid: 547e1bb5b288bc14187ab3bdf87891f6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 678663438, guid: 547e1bb5b288bc14187ab3bdf87891f6, type: 3}
+      propertyPath: m_BaseOffset
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2834995659269557440, guid: 547e1bb5b288bc14187ab3bdf87891f6,
         type: 3}
