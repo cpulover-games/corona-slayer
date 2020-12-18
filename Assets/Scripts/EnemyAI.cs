@@ -22,10 +22,13 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget < detectionRadius){
+        if (distanceToTarget < detectionRadius)
+        {
             GetsProvoked();
-        } else {
-            animator.SetTrigger("idle");
+        }
+        else
+        {
+            EnterIdleAnimation();
         }
     }
 
@@ -35,28 +38,42 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
- 
+
     private void GetsProvoked() // string reference
     {
         if (distanceToTarget >= navMeshAgent.stoppingDistance)
         {
             navMeshAgent.SetDestination(target.position);
-            animator.SetTrigger("chase");
-            animator.SetBool("attack", false);
+            EnterChaseAnimation();
         }
         else
         {
             RotateTowards(target);
-            AttackTarget();
+            EnterAttackAnimation();
         }
     }
 
-   private void RotateTowards (Transform target) {
-            Vector3 direction = (target.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
-   }
-    private void AttackTarget(){
+    private void RotateTowards(Transform target)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+    }
+
+    /* ANIMATION STATES */
+    private void EnterIdleAnimation()
+    {
+        animator.SetTrigger("idle");
+    }
+    private void EnterChaseAnimation()
+    {
+        animator.SetTrigger("chase");
+        animator.SetBool("attack", false);
+    }
+
+    private void EnterAttackAnimation()
+    {
         animator.SetBool("attack", true);
+        // TODO: add event - enemy hits player
     }
 }
