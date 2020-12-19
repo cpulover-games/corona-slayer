@@ -21,12 +21,6 @@ public class Controller : MonoBehaviour
     public Camera MainCamera;
     public Camera WeaponCamera;
 
-    [SerializeField] private float zoomInMainCamera = 40f;
-    [SerializeField] private float zoomOutMainCamera = 60f;
-    [SerializeField] private float zoomInWeaponCamera = 20f;
-    [SerializeField] private float zoomOutWeaponCamera = 40f;
-    private bool isZoomed = false;
-
     public Transform CameraPosition;
     public Transform WeaponPosition;
 
@@ -36,10 +30,7 @@ public class Controller : MonoBehaviour
     public AmmoInventoryEntry[] startingAmmo;
 
     [Header("Control Settings")]
-    private float mouseSensitivity;
-    [SerializeField] float zoomOutMouseSensitivity = 2.4f;
-    [SerializeField] float zoomInMouseSensitivity = 8f;
-
+    public float mouseSensitivity = 2.4f;
     public float PlayerSpeed = 5.0f;
     public float RunningSpeed = 7.0f;
     public float JumpSpeed = 5.0f;
@@ -80,8 +71,6 @@ public class Controller : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        mouseSensitivity = zoomOutMouseSensitivity;
-
         m_IsPaused = false;
         m_Grounded = true;
 
@@ -114,8 +103,6 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        ProcessZoomInput();
-
         if (CanPause && Input.GetButtonDown("Menu"))
         {
             PauseMenu.Instance.Display();
@@ -250,26 +237,6 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private void ProcessZoomInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            isZoomed = !isZoomed;
-            if (isZoomed)
-            {
-                MainCamera.fieldOfView = zoomInMainCamera;
-                WeaponCamera.fieldOfView = zoomInWeaponCamera;
-                mouseSensitivity = zoomInMouseSensitivity;
-            }
-            else
-            {
-                MainCamera.fieldOfView = zoomOutMainCamera;
-                WeaponCamera.fieldOfView = zoomOutWeaponCamera;
-                mouseSensitivity = zoomOutMouseSensitivity;
-            }
-        }
-    }
-
     public void DisplayCursor(bool display)
     {
         m_IsPaused = display;
@@ -291,6 +258,14 @@ public class Controller : MonoBehaviour
             w.transform.localPosition = Vector3.zero;
             w.transform.localRotation = Quaternion.identity;
             w.gameObject.SetActive(false);
+
+            // setup cameras and controller for weapon if it's zoomable
+            ZoomWeapon zoomComponent = w.GetComponent<ZoomWeapon>();
+            if(zoomComponent){
+                zoomComponent.SetMainCamera(MainCamera);
+                zoomComponent.SetWeaponCamera(WeaponCamera);
+                zoomComponent.SetController(Instance);
+            }
 
             w.PickedUp(this);
 
