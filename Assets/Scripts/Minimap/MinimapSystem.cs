@@ -34,7 +34,7 @@ public class MinimapSystem
 
     public static void Render(RenderTexture renderTarget, Vector3 origin, Vector3 forward, MinimapSystemSetting settings)
     {
-        settings.material.SetFloat(s_WallThicknessId, settings.wallThickness);
+        settings.material.SetFloat(s_WallThicknessId, settings.wallThickness * 2f);
 
         float aspectRatio = renderTarget.width / (float)renderTarget.height;
 
