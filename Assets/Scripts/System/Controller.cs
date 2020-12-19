@@ -20,17 +20,26 @@ public class Controller : MonoBehaviour
 
     public Camera MainCamera;
     public Camera WeaponCamera;
-    
+
+    [SerializeField] private float zoomInMainCamera = 40f;
+    [SerializeField] private float zoomOutMainCamera = 60f;
+    [SerializeField] private float zoomInWeaponCamera = 20f;
+    [SerializeField] private float zoomOutWeaponCamera = 40f;
+    private bool isZoomed = false;
+
     public Transform CameraPosition;
     public Transform WeaponPosition;
-    
+
     public Weapon[] startingWeapons;
 
     //this is only use at start, allow to grant ammo in the inspector. m_AmmoInventory is used during gameplay
     public AmmoInventoryEntry[] startingAmmo;
 
     [Header("Control Settings")]
-    public float MouseSensitivity = 100.0f;
+    private float mouseSensitivity;
+    [SerializeField] float zoomOutMouseSensitivity = 2.4f;
+    [SerializeField] float zoomInMouseSensitivity = 8f;
+
     public float PlayerSpeed = 5.0f;
     public float RunningSpeed = 7.0f;
     public float JumpSpeed = 5.0f;
@@ -39,11 +48,11 @@ public class Controller : MonoBehaviour
     public RandomPlayer FootstepPlayer;
     public AudioClip JumpingAudioCLip;
     public AudioClip LandingAudioClip;
-    
+
     float m_VerticalSpeed = 0.0f;
     bool m_IsPaused = false;
     int m_CurrentWeapon;
-    
+
     float m_VerticalAngle, m_HorizontalAngle;
     public float Speed { get; private set; } = 0.0f;
 
@@ -65,15 +74,17 @@ public class Controller : MonoBehaviour
     {
         Instance = this;
     }
-    
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        mouseSensitivity = zoomOutMouseSensitivity;
+
         m_IsPaused = false;
         m_Grounded = true;
-        
+
         MainCamera.transform.SetParent(CameraPosition, false);
         MainCamera.transform.localPosition = Vector3.zero;
         MainCamera.transform.localRotation = Quaternion.identity;
@@ -88,7 +99,7 @@ public class Controller : MonoBehaviour
         {
             ChangeAmmo(startingAmmo[i].ammoType, startingAmmo[i].amount);
         }
-        
+
         m_CurrentWeapon = -1;
         ChangeWeapon(0);
 
@@ -103,16 +114,18 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
+        ProcessZoomInput();
+
         if (CanPause && Input.GetButtonDown("Menu"))
         {
             PauseMenu.Instance.Display();
         }
-        
+
         FullscreenMap.Instance.gameObject.SetActive(Input.GetButton("Map"));
 
         bool wasGrounded = m_Grounded;
         bool loosedGrounding = false;
-        
+
         //we define our own grounded and not use the Character controller one as the character controller can flicker
         //between grounded/not grounded on small step and the like. So we actually make the controller "not grounded" only
         //if the character controller reported not being grounded for at least .5 second;
@@ -144,9 +157,9 @@ public class Controller : MonoBehaviour
                 m_VerticalSpeed = JumpSpeed;
                 m_Grounded = false;
                 loosedGrounding = true;
-                FootstepPlayer.PlayClip(JumpingAudioCLip, 0.8f,1.1f);
+                FootstepPlayer.PlayClip(JumpingAudioCLip, 0.8f, 1.1f);
             }
-            
+
             bool running = m_Weapons[m_CurrentWeapon].CurrentState == Weapon.WeaponState.Idle && Input.GetButton("Run");
             float actualSpeed = running ? RunningSpeed : PlayerSpeed;
 
@@ -161,31 +174,31 @@ public class Controller : MonoBehaviour
                 move.Normalize();
 
             float usedSpeed = m_Grounded ? actualSpeed : m_SpeedAtJump;
-            
+
             move = move * usedSpeed * Time.deltaTime;
-            
+
             move = transform.TransformDirection(move);
             m_CharacterController.Move(move);
-            
+
             // Turn player
-            float turnPlayer =  Input.GetAxis("Mouse X") * MouseSensitivity;
+            float turnPlayer = Input.GetAxis("Mouse X") * mouseSensitivity;
             m_HorizontalAngle = m_HorizontalAngle + turnPlayer;
 
             if (m_HorizontalAngle > 360) m_HorizontalAngle -= 360.0f;
             if (m_HorizontalAngle < 0) m_HorizontalAngle += 360.0f;
-            
+
             Vector3 currentAngles = transform.localEulerAngles;
             currentAngles.y = m_HorizontalAngle;
             transform.localEulerAngles = currentAngles;
 
             // Camera look up/down
             var turnCam = -Input.GetAxis("Mouse Y");
-            turnCam = turnCam * MouseSensitivity;
+            turnCam = turnCam * mouseSensitivity;
             m_VerticalAngle = Mathf.Clamp(turnCam + m_VerticalAngle, -89.0f, 89.0f);
             currentAngles = CameraPosition.transform.localEulerAngles;
             currentAngles.x = m_VerticalAngle;
             CameraPosition.transform.localEulerAngles = currentAngles;
-  
+
             m_Weapons[m_CurrentWeapon].triggerDown = Input.GetMouseButton(0);
 
             Speed = move.magnitude / (PlayerSpeed * Time.deltaTime);
@@ -201,7 +214,7 @@ public class Controller : MonoBehaviour
             {
                 ChangeWeapon(m_CurrentWeapon + 1);
             }
-            
+
             //Key input to change weapon
 
             for (int i = 0; i < 10; ++i)
@@ -233,7 +246,27 @@ public class Controller : MonoBehaviour
 
         if (!wasGrounded && m_Grounded)
         {
-            FootstepPlayer.PlayClip(LandingAudioClip, 0.8f,1.1f);
+            FootstepPlayer.PlayClip(LandingAudioClip, 0.8f, 1.1f);
+        }
+    }
+
+    private void ProcessZoomInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            isZoomed = !isZoomed;
+            if (isZoomed)
+            {
+                MainCamera.fieldOfView = zoomInMainCamera;
+                WeaponCamera.fieldOfView = zoomInWeaponCamera;
+                mouseSensitivity = zoomInMouseSensitivity;
+            }
+            else
+            {
+                MainCamera.fieldOfView = zoomOutMainCamera;
+                WeaponCamera.fieldOfView = zoomOutWeaponCamera;
+                mouseSensitivity = zoomOutMouseSensitivity;
+            }
         }
     }
 
@@ -258,9 +291,9 @@ public class Controller : MonoBehaviour
             w.transform.localPosition = Vector3.zero;
             w.transform.localRotation = Quaternion.identity;
             w.gameObject.SetActive(false);
-            
+
             w.PickedUp(this);
-            
+
             m_Weapons.Add(w);
         }
     }
@@ -279,7 +312,7 @@ public class Controller : MonoBehaviour
             m_CurrentWeapon = m_Weapons.Count - 1;
         else if (m_CurrentWeapon >= m_Weapons.Count)
             m_CurrentWeapon = 0;
-        
+
         m_Weapons[m_CurrentWeapon].gameObject.SetActive(true);
         m_Weapons[m_CurrentWeapon].Selected();
     }
@@ -306,7 +339,7 @@ public class Controller : MonoBehaviour
             {//we just grabbed ammo for a weapon that add non left, so it's disabled right now. Reselect it.
                 m_Weapons[m_CurrentWeapon].Selected();
             }
-            
+
             WeaponInfoUI.Instance.UpdateAmmoAmount(GetAmmo(ammoType));
         }
     }
