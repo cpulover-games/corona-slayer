@@ -43,8 +43,8 @@ public class EnemyAI : MonoBehaviour
     private void OnDrawGizmos()
     {
         // Display the detection radius when selected
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 
     private void GetsProvoked() // string reference
