@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 3ecce0ae2cd0c49be8ab8530e6041aba, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -98,7 +98,7 @@ Material:
     - _DstBlend: 0
     - _EdgeLength: 15
     - _GlossMapScale: 0.47
-    - _Glossiness: 1
+    - _Glossiness: 0.674
     - _GlossyReflections: 1
     - _Metallic: 1
     - _Mode: 0

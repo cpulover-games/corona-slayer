@@ -83,7 +83,7 @@ Material:
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.777
+    - _Glossiness: 0.602
     - _GlossyReflections: 1
     - _InvFade: 9.74
     - _LightingEnabled: 1
