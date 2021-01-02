@@ -13,5 +13,6 @@ public class RestartLevel : MonoBehaviour
     {
         UIAudioPlayer.PlayPositive();
         GameSystem.Instance.NextLevel();
+        Time.timeScale = 1;
     }
 }
