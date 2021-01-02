@@ -18,6 +18,8 @@ public class Controller : MonoBehaviour
     //Urg that's ugly, maybe find a better way
     public static Controller Instance { get; protected set; }
 
+    private PlayerHealth playerHealth;
+
     public Camera MainCamera;
     public Camera WeaponCamera;
 
@@ -68,6 +70,8 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
+        playerHealth = GetComponent<PlayerHealth>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -261,7 +265,8 @@ public class Controller : MonoBehaviour
 
             // setup cameras and controller for weapon if it's zoomable
             ZoomWeapon zoomComponent = w.GetComponent<ZoomWeapon>();
-            if(zoomComponent){
+            if (zoomComponent)
+            {
                 zoomComponent.SetMainCamera(MainCamera);
                 zoomComponent.SetWeaponCamera(WeaponCamera);
                 zoomComponent.SetController(Instance);
@@ -322,5 +327,42 @@ public class Controller : MonoBehaviour
     public void PlayFootstep()
     {
         FootstepPlayer.PlayRandom();
+    }
+
+
+    /* ACID */
+    bool isTouchingAcid = false;
+    float acidSpeedFactor = 4.0f;
+    float acidDamage = 0.2f;
+    float acidDamageRate = 0.5f;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Acid")
+        {
+            isTouchingAcid = true;
+            PlayerSpeed -= acidSpeedFactor;
+            RunningSpeed -= acidSpeedFactor;
+            InvokeRepeating(nameof(TakeDamageUnderAcid), 0f, acidDamageRate);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Acid")
+        {
+            isTouchingAcid = false;
+            PlayerSpeed += acidSpeedFactor;
+            RunningSpeed += acidSpeedFactor;
+            CancelInvoke(nameof(TakeDamageUnderAcid));
+        }
+    }
+
+    private void TakeDamageUnderAcid()
+    {
+        if (!m_IsPaused && !LockControl)
+        {
+            playerHealth.TakeDamage(acidDamage);
+        }
     }
 }

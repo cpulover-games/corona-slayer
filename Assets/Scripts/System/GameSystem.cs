@@ -70,6 +70,7 @@ public class GameSystem : MonoBehaviour
         
 #else
         //in the final game, we init everything to episode & level 0, as we can't start from somewhere else
+        // TODO: add xwin scene
         if(s_CurrentEpisode < 0 || s_CurrentLevel < 0)
         {
             s_CurrentEpisode = 0;

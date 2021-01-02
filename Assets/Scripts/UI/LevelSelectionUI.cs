@@ -13,10 +13,10 @@ public class LevelSelectionUI : MonoBehaviour
     public RectTransform ButtonListPlace;
     public Button ButtonPrefab;
     public Button BackButton;
-    
+
     List<Button> m_EpisodeButtons = new List<Button>();
     List<List<Button>> m_LevelButtons = new List<List<Button>>();
-    
+
     void Awake()
     {
         Instance = this;
@@ -35,11 +35,11 @@ public class LevelSelectionUI : MonoBehaviour
             t.text = $"Episode {i + 1}";
 
             var i1 = i;
-            b.onClick.AddListener(() => {UIAudioPlayer.PlayPositive(); OpenEpisode(i1);});
+            b.onClick.AddListener(() => { UIAudioPlayer.PlayPositive(); OpenEpisode(i1); });
             b.transform.SetParent(ButtonListPlace);
-                
+
             m_EpisodeButtons.Add(b);
-            
+
             m_LevelButtons.Add(new List<Button>());
 
             for (int j = 0; j < ep.scenes.Length; ++j)
@@ -55,10 +55,11 @@ public class LevelSelectionUI : MonoBehaviour
 #else
                     SceneManager.LoadScene(ep.scenes[j1]);
 #endif
+                    Time.timeScale = 1;
                 });
 
                 t.text = $"Level {j + 1}";
-                
+
                 levelB.transform.SetParent(ButtonListPlace);
                 m_LevelButtons[i].Add(levelB);
             }
@@ -87,9 +88,9 @@ public class LevelSelectionUI : MonoBehaviour
     {
         BackButton.onClick.RemoveAllListeners();
         BackButton.onClick.AddListener(BackToPause);
-        
+
         gameObject.SetActive(true);
-        
+
         foreach (RectTransform t in ButtonListPlace)
         {
             t.gameObject.SetActive(false);
@@ -105,7 +106,7 @@ public class LevelSelectionUI : MonoBehaviour
     {
         BackButton.onClick.RemoveAllListeners();
         BackButton.onClick.AddListener(BackToEpisode);
-        
+
         foreach (RectTransform t in ButtonListPlace)
         {
             t.gameObject.SetActive(false);
