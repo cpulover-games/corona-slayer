@@ -761,7 +761,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -895,8 +895,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1540218213742704415, guid: 3f1ddb7022225814aaa00dc7e4ebbfcf,
         type: 3}
+      propertyPath: lengthInSec
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1540218213742704415, guid: 3f1ddb7022225814aaa00dc7e4ebbfcf,
+        type: 3}
       propertyPath: ShapeModule.radius.value
       value: 5.489349
+      objectReference: {fileID: 0}
+    - target: {fileID: 1540218215103764491, guid: 3f1ddb7022225814aaa00dc7e4ebbfcf,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f1ddb7022225814aaa00dc7e4ebbfcf, type: 3}

@@ -967,10 +967,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6850249293686296486}
     m_Modifications:
+    - target: {fileID: 1809716927414879198, guid: 5e8bfac0a1d67dd408d216db93d536c9,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1809716929317022920, guid: 5e8bfac0a1d67dd408d216db93d536c9,
         type: 3}
       propertyPath: m_Name
       value: LightParticlesCorridors
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809716929317022922, guid: 5e8bfac0a1d67dd408d216db93d536c9,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1809716929317022922, guid: 5e8bfac0a1d67dd408d216db93d536c9,
         type: 3}

@@ -131,8 +131,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 1000
+  near clip plane: 0.3
+  far clip plane: 200
   field of view: 40
   orthographic: 0
   orthographic size: 5
@@ -140,7 +140,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 512
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -178,7 +178,7 @@ MonoBehaviour:
   subpixelMorphologicalAntialiasing:
     quality: 2
   fastApproximateAntialiasing:
-    fastMode: 0
+    fastMode: 1
     keepAlpha: 0
   fog:
     enabled: 1
@@ -269,15 +269,15 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 300
   field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3383
-  m_RenderingPath: 3
+    m_Bits: 11575
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -311,10 +311,10 @@ MonoBehaviour:
   volumeTrigger: {fileID: 1782824342990945114}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 15671
+    m_Bits: 7479
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
@@ -323,7 +323,7 @@ MonoBehaviour:
   subpixelMorphologicalAntialiasing:
     quality: 2
   fastApproximateAntialiasing:
-    fastMode: 0
+    fastMode: 1
     keepAlpha: 0
   fog:
     enabled: 1
@@ -350,8 +350,8 @@ MonoBehaviour:
       colorBlindnessType: 0
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
@@ -400,10 +400,12 @@ GameObject:
   - component: {fileID: 1782824343737523952}
   - component: {fileID: 1782824343737523964}
   - component: {fileID: 2076006592}
+  - component: {fileID: 1590129683}
+  - component: {fileID: 1590129684}
   m_Layer: 12
   m_Name: Character
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -534,6 +536,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e775d48fda8c87946865215f18419636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &1590129683
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782824343737523965}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1590129684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782824343737523965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebbe59fd7c408e6409c2f28fca451ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  healthBar: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
 --- !u!1 &9066338771475785965
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,25 +720,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1782824343737523953}
     m_Modifications:
+    - target: {fileID: 4497104341275494200, guid: b8706c025c5795b429ce5cb8a0717a5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4793944768593068416, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4793944768593068416, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4793944768593068416, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4793944768593068416, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4793944768593068416, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
@@ -722,12 +758,17 @@ PrefabInstance:
     - target: {fileID: 4793944768593068416, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5369278829639001549, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
       propertyPath: m_Name
       value: Joystick Move UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369278829639001549, guid: b8706c025c5795b429ce5cb8a0717a5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7278737145451310436, guid: b8706c025c5795b429ce5cb8a0717a5e,
         type: 3}
@@ -861,10 +902,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1782824343737523953}
     m_Modifications:
+    - target: {fileID: 5115437764973187628, guid: b589f786ee433124d9126bfe8f4f4cf4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5115437765281945736, guid: b589f786ee433124d9126bfe8f4f4cf4,
         type: 3}
       propertyPath: m_Name
       value: Joystick Rotate UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5115437765281945736, guid: b589f786ee433124d9126bfe8f4f4cf4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5115437765281945737, guid: b589f786ee433124d9126bfe8f4f4cf4,
         type: 3}
