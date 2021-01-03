@@ -23,12 +23,13 @@ MonoBehaviour:
   - title: Slimy Slimy
     sceneAssets:
     - {fileID: 102900000, guid: f15b992a485a99344b744a0810b97dbc, type: 3}
-    - {fileID: 102900000, guid: cf8af1738c3cb4b488b72c399f7898f8, type: 3}
-    - {fileID: 102900000, guid: f15b992a485a99344b744a0810b97dbc, type: 3}
+    - {fileID: 102900000, guid: b6a6b423dd97c0448923969036e5159a, type: 3}
     scenes:
     - Assets/Scenes/Level 1.unity
     - Assets/Creator Kit - FPS/Scenes/ExampleScene.unity
+    - Assets/Scenes/Level 1.unity
   - title: Episode
     sceneAssets:
     - {fileID: 102900000, guid: f15b992a485a99344b744a0810b97dbc, type: 3}
-    scenes: []
+    scenes:
+    - Assets/Scenes/Level 1.unity

@@ -233,11 +233,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapImageTarget: {fileID: 2625390797962100033}
   Arrow: {fileID: 2625390797088940832}
-  Resolution: 512
+  Resolution: 1024
   MinimapSystemSettings:
     heightStep: 7
-    halfSize: 35
-    wallThickness: 0.02
+    halfSize: 30
+    wallThickness: 0.035
     material: {fileID: 2100000, guid: a2e1d69f89af3994dbaaa4122e8e055f, type: 2}
     isFixed: 1
 --- !u!1 &660898378380174950

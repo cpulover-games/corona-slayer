@@ -331,7 +331,6 @@ public class Controller : MonoBehaviour
 
 
     /* ACID */
-    bool isTouchingAcid = false;
     float acidSpeedFactor = 4.0f;
     float acidDamage = 0.2f;
     float acidDamageRate = 0.5f;
@@ -340,7 +339,6 @@ public class Controller : MonoBehaviour
     {
         if (other.gameObject.tag == "Acid")
         {
-            isTouchingAcid = true;
             PlayerSpeed -= acidSpeedFactor;
             RunningSpeed -= acidSpeedFactor;
             InvokeRepeating(nameof(TakeDamageUnderAcid), 0f, acidDamageRate);
@@ -351,7 +349,6 @@ public class Controller : MonoBehaviour
     {
         if (other.gameObject.tag == "Acid")
         {
-            isTouchingAcid = false;
             PlayerSpeed += acidSpeedFactor;
             RunningSpeed += acidSpeedFactor;
             CancelInvoke(nameof(TakeDamageUnderAcid));
